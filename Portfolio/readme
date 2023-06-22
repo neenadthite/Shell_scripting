@@ -1,0 +1,2 @@
+To know the current Unique ID from the Portfolio of a person, use sh UniqueID -get
+To update the current Unique ID, use sh UniqueID -set 9digitID

@@ -1,0 +1,44 @@
+#!/bin/sh
+FILE_PATH=/home/ninad/linux_commands/Portfolio
+a=""
+
+Help()
+{
+	echo "This utility is used to know and assign unique ID to the member"
+	echo "Update the Unique ID of the person using: Unique_ID -set ID Number"
+	echo "To know the current ID enter: Unique_ID -get"
+	exit 1
+}
+
+Get()
+{
+	echo "Current ID $(sed -n 's/^UniqueIDNumber\(.*\)/\1/p' < $FILE_PATH)"
+}
+
+if [ "$1" == "$a" ]
+then
+	Help
+elif [ "$1" == -get ]
+then
+	Get
+        exit 1
+elif [ "$1" == -set ] && [ "$2" == "$a" ]
+then
+        echo "Please enter Unique ID serial number in the arguement"
+        exit 1
+elif [ "$1" == -set ] && [ "$2" != "$a" ]
+then
+        SR_NO=`echo $2`
+        case $SR_NO in
+                ([A-Za-z0-9][A-Za-z0-9][A-Za-z0-9][A-Za-z0-9][A-Za-z0-9][A-Za-z0-9][A-Za-z0-9][A-Za-z0-9][A-Za-z0-9])
+		echo "Updating the Unique ID to: $SR_NO"
+                sed -i -e "/^UniqueIDNumber/s|.*|UniqueIDNumber = $SR_NO|" $FILE_PATH
+		
+		Get
+                ;;
+                (*)
+                echo "Please enter 9 character entry"
+        esac
+else
+	Help
+fi
